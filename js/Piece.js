@@ -8,9 +8,12 @@ class Piece{
                                         VALID_POSITIONS[position.x][position.y][1]);
         this.newPos = null;
         this.vel = vel;
-        this.has_piece = false; // For board only
-        this.num_piece = -1; // For board only
-        this.piece_player = -1; // For board only
+        /****      For board only          ****/
+        this.has_piece = false; 
+        this.num_piece = -1; 
+        this.piece_player = -1; 
+        this.highlight_on = false; 
+        /****      End of board only       ****/
     }
 
     update = function(){
@@ -43,7 +46,6 @@ class Piece{
             if (this.has_piece){
                 return this.has_piece;
             } else {
-                this.has_piece = true;
                 return false;
             }
         } 
@@ -67,6 +69,10 @@ class Piece{
                 WIDTH, HEIGHT);
       } else {
         noStroke();
+        if (this.highlight_on){
+          stroke(255,0,0);
+          strokeWeight(4);
+        }
         fill(30, 120, 0);
         rect(this.coordinates.x, this.coordinates.y, WIDTH, HEIGHT);
       }

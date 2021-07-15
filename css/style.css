@@ -2,6 +2,162 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+body {
+  font-size: 16px;
+  color: #fff;
+  background-color: #fff;
+  font-family: 'Oxygen', sans-serif;
+}
 canvas {
   display: block;
 }
+
+/** HEADER **/
+#header-nav {
+  background-color:#EE9B11;
+  border-radius: 0;
+  border: 0;
+  box-shadow: 0px 0px 8px rgba(0,0,0,.6);
+}
+
+.resize {
+  width: 150px;
+  height: auto;
+  margin: 10px 15px 10px 0;
+}
+.resize-small {
+  width: 40px;
+  height: auto;
+  margin: 10px 5px 10px 0;
+}
+
+.navbar-brand {
+  padding-top: 25px;
+}
+.navbar-brand h1 { /* Title */
+  font-family: 'Lora', serif;
+  color: #2737de;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #222;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+.navbar-brand a {
+  color: #1164EE;
+}
+.navbar-brand a:hover, .navbar-brand a:focus {
+  text-decoration: none;
+}
+.navbar-brand a:nth-child(2) div:nth-child(2) { /* español */
+  color: #2737de;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+.navbar-brand a { /* inglés */
+  color: #2737de;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+.navbar-brand #english, .navbar-brand #español {
+  color: #000;
+  text-transform: none;
+}
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+  border: 1px solid #61122f;
+}
+.navbar-header button.navbar-toggle {
+  clear: both;
+  margin-top: -30px;
+}
+
+#nav-list {
+  margin-top: 10px;
+}
+#nav-list a {
+  color: #1164EE;
+  text-align: center;
+}
+#nav-list a:hover, #nav-list .active a{
+  background: #e9b35c;
+}
+#nav-list a span {
+  font-size: 1.8em;
+}
+
+#contact #nav-list a {
+  color: #fff;
+}
+#contact #nav-list a:hover {
+  color: #000;
+  background: #E7E7E7;
+}
+
+#phone {
+  margin-top: 5px;
+}
+#phone a { /* Phone number */
+  text-align: right;
+  padding-bottom: 0;
+}
+/* END HEADER */
+
+/* BOARD */
+#board {
+  width: 600px;
+  height: 600px;
+  margin: auto;
+}
+
+#restart, .butt {
+  width: 100px;
+  height: 30px;
+  background-color: #000;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 5px #999;
+}
+#restart:hover, .butt:hover {
+  background-color: #858585; 
+  color: white;
+}
+#restart:active, .butt:active {
+  background-color: #858585;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+/* END of BOARD */
+
+/* FOOTER */
+.panel-footer {
+  margin-top: 30px;
+  padding-top: 35px;
+  padding-bottom: 30px;
+  background-color: #222;
+  border-top: 0;
+}
+.panel-footer div.row {
+  margin-bottom: 35px;
+}
+#hours, #address {
+  line-height: 2;
+}
+#hours > span, #address > span {
+  font-size: 1.3em;
+}
+#address p {
+  color: #557c3e;
+  font-size: .8em;
+  line-height: 1.8;
+}
+#testimonials {
+  font-style: italic;
+}
+#testimonials p:nth-child(2) {
+  margin-top: 25px;
+}
+/* END FOOTER */
