@@ -70,7 +70,7 @@ function addPiece(i){
     player0.push(new Piece(currentPlayer, 
                         board[i].position, createVector(0,0)));  
     currentPlayer = 1-currentPlayer;  
-    rounds++;                          
+    rounds++;
   } else if (currentPlayer == 1 && player1.length < 3) {
     board[i].num_piece = player1.length;
     board[i].piece_player = 1;
