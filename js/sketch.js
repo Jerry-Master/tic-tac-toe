@@ -8,6 +8,8 @@ function setup() {
   button = createButton('Restart');
   button.id('restart');
   button.mousePressed(restart);
+  button.touchEnded(restart);
+  console.log('start');
 }
 
 function draw() {
@@ -43,6 +45,7 @@ function mousePressed(){
 function windowResized() {
   var cw = $('#board').width();
   $('#board').css({'height':cw+'px'});
+  var BOARD = document.querySelector('#board');
   SCREEN_WIDHT = BOARD.offsetWidth + parseFloat(jQuery('#board').css("margin-left"));
   SCREEN_HEIGHT = BOARD.offsetHeight;
   resizeCanvas(SCREEN_WIDHT, SCREEN_HEIGHT);
@@ -63,4 +66,12 @@ function windowResized() {
     player1[i].update_coords();
     player1[i].show();
   }
+}
+
+/* prevents the mobile browser from processing some default
+ * touch events, like swiping left for "back" or scrolling
+ * the page.
+ */
+function touchEnded(){
+  return false;
 }

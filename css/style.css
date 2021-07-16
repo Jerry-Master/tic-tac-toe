@@ -203,7 +203,8 @@ canvas {
     margin-bottom: 20px;
   }
   #board {
-    margin: 0;
+    margin-left: 0;
+    padding-left: 0;
   }
 
   /* Header */
