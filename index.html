@@ -34,31 +34,43 @@
             </button>
           </div>          
           <br><br><br>
-          <div id="collapsable-nav" class="collapse navbar-collapse">
-            <ul id="nav-list" class="nav navbar-nav navbar-right">
-              <li class="active">
-                
-                  <button class='butt'><br class="hidden-xs"> Human vs Human </button>
-                
-              </li>
-              <li>
-                
-                  <button class='butt'><br class="hidden-xs"> AI vs Human </button>
-                
-              </li>
-              <li class="folder">
-                
-                  <button class='butt'><br class="hidden-xs"> AI vs AI </button>
-                
-              </li>
-            </ul><!-- #nav-list -->
+          <div id="collapsable-nav" class="collapse navbar-collapse pull-right">
+            <button class="butt">Human vs Human</button>
+            <button class="butt">AI vs Human</button>
+            <button class="butt">Human vs AI</button>
+            <button class="butt">AI vs AI</button>
           </div><!-- .collapse .navbar-collapse -->          
         </div><!-- .container -->
       </nav><!-- #header-nav -->
     </header>
 
-    <div id='board' class='d-flex justify-content-center'>
-      
+    <div id='content' class="container">
+      <div class="row">
+        
+        <div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+          <div id='rounds' class='ins1'>
+            <h3># of rounds</h3>
+            <p>0</p>
+          </div>
+        </div>
+        <div class="col-xs-6 visible-xs">
+          <div id='player_' class='ins2'>
+            <h3>Currently playing:</h3>        
+            <p>Player 0</p>
+          </div>
+        </div>
+        <hr class='visible-xs'>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12" id="board">
+          
+        </div>
+        <hr class='visible-xs'>
+        <div class="col-lg-3 col-sm-3 col-md-3 hidden-xs">
+          <div id='player' class='ins2'>
+            <h3>Currently playing:</h3>        
+            <p>Player 0</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="panel-footer">
@@ -85,11 +97,11 @@
             <hr class="visible-xs">
           </section>
           <section id="philosophy" class="col-sm-4">
-            <p>“Do not fear failure but rather fear not trying.”</p>
-            <p class="text-right">― Roy T. Bennett, The Light in the Heart</p>
+            <p>“Winning isn’t everything, it’s the only thing.”</p>
+            <p class="text-right">― Vince Lombardi</p>
             <br>
-            <p>“Life has no remote....get up and change it yourself!”</p>
-            <p class="text-right">― Mark A. Cooper, Operation Einstein </p>
+            <p>“Nothing is black-and-white, except for winning and losing, and maybe that’s why people gravitate to that so much.”</p>
+            <p class="text-right">― Steve Nash </p>
           </section>
         </div>
         <div class="text-center">&copy; Copyright Jose Pérez Cano 2021</div>
@@ -100,6 +112,7 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="js/jQuery.js"></script>
     <script src="js/Piece.js"></script>
     <script src="js/global_vars.js"></script>
     <script src="js/game_dynamics.js"></script>

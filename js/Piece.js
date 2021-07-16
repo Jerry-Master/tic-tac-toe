@@ -1,13 +1,14 @@
 /***** Tic Tac Toe *****/
 
 class Piece{
-    constructor(player, position, vel){
+    constructor(player, position, vel, color){
         this.player = player;
         this.position = position;
         this.coordinates = createVector(VALID_POSITIONS[position.x][position.y][0],
                                         VALID_POSITIONS[position.x][position.y][1]);
         this.newPos = null;
         this.vel = vel;
+        this.color = color;
         /****      For board only          ****/
         this.has_piece = false; 
         this.num_piece = -1; 
@@ -32,6 +33,11 @@ class Piece{
             this.newPos = null;
         }
       }
+    }
+
+    update_coords = function(){
+      this.coordinates = createVector(VALID_POSITIONS[this.position.x][this.position.y][0],
+        VALID_POSITIONS[this.position.x][this.position.y][1]);
     }
 
     inside = function(x, y){
@@ -73,7 +79,7 @@ class Piece{
           stroke(255,0,0);
           strokeWeight(4);
         }
-        fill(30, 120, 0);
+        fill(this.color);
         rect(this.coordinates.x, this.coordinates.y, WIDTH, HEIGHT);
       }
       pop();

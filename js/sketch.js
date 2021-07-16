@@ -1,17 +1,19 @@
 function setup() {
-  var myCanvas = createCanvas(SCREEN_WIDHT, SCREEN_HEIGHT);
+  myCanvas = createCanvas(SCREEN_WIDHT, SCREEN_HEIGHT);
   myCanvas.parent('board');
   for (let i = 0; i < 9; i++){
-    board[i] = new Piece(-1, createVector(Math.floor(i / 3), i % 3), createVector(0, 0));
+    board[i] = new Piece(-1, createVector(Math.floor(i / 3), i % 3), 
+                         createVector(0, 0), jQuery('#board').css("color"));
   }
   button = createButton('Restart');
   button.id('restart');
-  button.position(BOARD.offsetLeft + SCREEN_WIDHT / 2 - button.width / 2, BOARD.offsetTop);
   button.mousePressed(restart);
 }
 
 function draw() {
-  background(255, 204, 0);
+  var ml = parseFloat(jQuery('#board').css("margin-left"));
+  button.position(-ml/2 +BOARD.offsetLeft + SCREEN_WIDHT / 2 - button.width / 2, BOARD.offsetTop);
+  background(jQuery('#board').css("background-color"));
   for (let i = 0; i < 9; i++){
     board[i].show();
   }
@@ -34,5 +36,31 @@ function mousePressed(){
     firstClick();
   } 
   finished = checkGame();
+  update_rounds(rounds);
+  update_player(currentPlayer)
 }
 
+function windowResized() {
+  var cw = $('#board').width();
+  $('#board').css({'height':cw+'px'});
+  SCREEN_WIDHT = BOARD.offsetWidth + parseFloat(jQuery('#board').css("margin-left"));
+  SCREEN_HEIGHT = BOARD.offsetHeight;
+  resizeCanvas(SCREEN_WIDHT, SCREEN_HEIGHT);
+  OFFSET = 3 * SCREEN_WIDHT / 18;
+  WIDTH = 3 * SCREEN_WIDHT / 18;
+  HEIGHT = 3 * SCREEN_HEIGHT / 18;
+  VALID_POSITIONS = compute_valid_positions();
+  
+  for (let i = 0; i < 9; i++){
+    board[i].update_coords();
+    board[i].show();
+  }
+  for (let i = 0; i < player0.length; i++){
+    player0[i].update_coords();
+    player0[i].show();
+  }
+  for (let i = 0; i < player1.length; i++){
+    player1[i].update_coords();
+    player1[i].show();
+  }
+}

@@ -69,13 +69,15 @@ function addPiece(i){
     board[i].piece_player = 0;
     player0.push(new Piece(currentPlayer, 
                         board[i].position, createVector(0,0)));  
-    currentPlayer = 1-currentPlayer;                            
+    currentPlayer = 1-currentPlayer;  
+    rounds++;                          
   } else if (currentPlayer == 1 && player1.length < 3) {
     board[i].num_piece = player1.length;
     board[i].piece_player = 1;
     player1.push(new Piece(currentPlayer, 
                 board[i].position, createVector(0,0)));
     currentPlayer = 1-currentPlayer;
+    rounds++;
   } else { // Wrong move
     board[i].has_piece = false;
   }
@@ -125,7 +127,6 @@ function secondClick(){
     next_board = i;
     let has_piece = board[i].clicked();
     if (!has_piece && !(has_piece === null) && next_board != curr_board) {
-      console.log('not change');
       if (currentPlayer == 0 && player0.length == 3) {
         if (valid(curr_board, next_board)){
           changed = true;
@@ -134,6 +135,7 @@ function secondClick(){
           board[i].num_piece = moving_piece;
           board[i].piece_player = 0;
           currentPlayer = 1-currentPlayer;
+          rounds++;
         }
       } else if (currentPlayer == 1 && player1.length == 3) {
         if (valid(curr_board, next_board)){
@@ -143,12 +145,12 @@ function secondClick(){
           board[i].num_piece = moving_piece;
           board[i].piece_player = 1;
           currentPlayer = 1-currentPlayer;
+          rounds++;
         }
       }       
     } else if (!(has_piece === null) && (has_piece || 
                 !valid(curr_board, next_board))) { // Wrong move
       board[curr_board].has_piece = true;
-      console.log('change');
       changed = true;
     }
   }
@@ -159,15 +161,16 @@ function secondClick(){
 }
 
 function restart(){
-    player0 = [];
-    player1 = [];
-    currentPlayer = 0;
-    finished = false;
-    total_pieces = 0;
-    moving_piece = -1;
-    curr_board = -1;
-    waiting_response = false;
-    for (let i = 0; i < 9; i++){
-      board[i].has_piece = false;
-    }
+  rounds = 0;
+  player0 = [];
+  player1 = [];
+  currentPlayer = 0;
+  finished = false;
+  total_pieces = 0;
+  moving_piece = -1;
+  curr_board = -1;
+  waiting_response = false;
+  for (let i = 0; i < 9; i++){
+    board[i].has_piece = false;
+  }
 }
