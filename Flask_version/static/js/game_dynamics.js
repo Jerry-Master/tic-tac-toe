@@ -1,11 +1,7 @@
 function saveState(){
   // Save data
-  var json = {'board': {'x': [], 'y': []}, 'player0': {'x': [], 'y': []}, 
+  var json = {'player0': {'x': [], 'y': []}, 
               'player1': {'x': [], 'y': []}};
-  for (let i=0; i<9; i++){
-    json['board']['x'][i] = board[i].position.x;
-    json['board']['y'][i] = board[i].position.y;
-  }
   for (let i=0; i<player0.length; i++){
     json['player0']['x'][i] = player0[i].position.x;
     json['player0']['y'][i] = player0[i].position.y;
@@ -17,26 +13,40 @@ function saveState(){
   $.ajax({
     url : '/save',
     dataType : 'json', 
-    type : 'post',
+    type : 'POST',
     data : {data: JSON.stringify(json)},
-    success : function(data) {         
-        console.log('good'); // should display 'Hello, World'
-        console.log(data);
-    },
-    error : function(data) {
-      console.log('bad');
-    }
+    async : false
+  }).done(function(data) {         
+      console.log('Success saving'); 
+  }).fail(function() {
+      console.log('Error saving');
   });
 
 
   // Execute Ai program
-
-  // Retrieve data
   $.ajax({
-    url:"static/js/words.json",
-    method:"GET"
-  }).done(function(data){
-    console.log(data);
+    url : '/exe',
+    type : 'GET'
+  }).always(function() {
+    console.log('Done computing');
+    // Retrieve data
+    $.ajax({
+      url:"/load",
+      method:"GET"
+    }).done(function(data) {
+      console.log('Success loading');
+      data = JSON.parse(data);
+      for (let i=0; i<player0.length; i++){
+        player0[i].position.x = data['player0']['x'][i];
+        player0[i].position.y = data['player0']['y'][i];
+      }
+      for (let i=0; i<player1.length; i++){
+        player1[i].position.x = data['player1']['x'][i];
+        player1[i].position.y = data['player1']['y'][i];
+      }
+    }).fail(function() {
+      console.log('Failed loading');
+    })
   })
 }
 
