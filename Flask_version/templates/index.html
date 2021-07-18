@@ -35,10 +35,10 @@
           </div>          
           <br><br><br>
           <div id="collapsable-nav" class="collapse navbar-collapse pull-right">
-            <button class="butt">Human vs Human</button>
-            <button class="butt">AI vs Human</button>
-            <button class="butt">Human vs AI</button>
-            <button class="butt">AI vs AI</button>
+            <a href=# id='human'><button class="butt">Human vs Human</button></a>
+            <a href=# id='ai0'><button class="butt">AI vs Human</button></a>
+            <a href=# id='ai1'><button class="butt">Human vs AI</button></a>
+            <a href=# id='ai'><button class="butt">AI vs AI</button></a>
           </div><!-- .collapse .navbar-collapse -->          
         </div><!-- .container -->
       </nav><!-- #header-nav -->
@@ -118,7 +118,6 @@
     <script src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/Piece.js') }}"></script>
     <script src="{{ url_for('static', filename='js/global_vars.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
     <script src="{{ url_for('static', filename='js/game_dynamics.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sketch.js') }}"></script> 
   </body>

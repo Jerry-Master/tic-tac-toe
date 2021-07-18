@@ -1,4 +1,11 @@
 function setup() {
+  $.ajax({
+    url : '/compile',
+    type : 'GET'
+  }).always(function() {
+    console.log('Done compiling');
+  });
+
   myCanvas = createCanvas(SCREEN_WIDHT, SCREEN_HEIGHT);
   myCanvas.parent('board');
   for (let i = 0; i < 9; i++){
@@ -31,15 +38,25 @@ function draw() {
 }
 
 function mousePressed(){
-  if (waiting_response) { // New cell to move the piece
-    secondClick();
-    waiting_response = false;
-  } else if (!finished){
-    firstClick();
-  } 
-  finished = checkGame();
-  update_rounds(rounds);
-  update_player(currentPlayer)
+  if (!use_ai || (ai_player != currentPlayer && ai_player != 2)){
+    if (waiting_response) { // New cell to move the piece
+      secondClick();
+      waiting_response = false;
+    } else if (!finished){
+      firstClick();
+    } 
+    finished = checkGame();
+    update_rounds(rounds);
+    update_player(currentPlayer)
+  } else if (ai_player == 2){
+    console.log(button.position());
+    if (first){
+      saveState(100, false);
+      first = false;
+    } else {
+      saveState(10, false);
+    }
+  }
 }
 
 function windowResized() {

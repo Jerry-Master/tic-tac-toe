@@ -2,21 +2,8 @@ html, body {
   margin: 0;
   padding: 0;
 }
-#btnAjaxCall{
-  height: 50px;
-  width: 120px;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  background: #3498db;
-  outline: none;
-  font-size: 22px;
-  opacity: 0.7;
-  padding: 10px;
-}
-#btnAjaxCall:hover{
-  cursor: pointer;
-  opacity: 1;
+a {
+  color: inherit;
 }
 
 body {

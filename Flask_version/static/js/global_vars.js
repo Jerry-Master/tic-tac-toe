@@ -1,4 +1,7 @@
 var myCanvas;
+var use_ai = false;
+var ai_player = 1;
+var first = true;
 var board = [];
 var player0 = [];
 var player1 = [];

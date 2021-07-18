@@ -1,14 +1,33 @@
-function saveState(){
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function saveState(waitTime=1000, async=true){
   // Save data
   var json = {'player0': {'x': [], 'y': []}, 
               'player1': {'x': [], 'y': []}};
   for (let i=0; i<player0.length; i++){
-    json['player0']['x'][i] = player0[i].position.x;
-    json['player0']['y'][i] = player0[i].position.y;
+    if (player0[i].newPos === null){
+      json['player0']['x'][i] = player0[i].position.x;
+      json['player0']['y'][i] = player0[i].position.y;
+    } else {
+      json['player0']['x'][i] = player0[i].newPos.x;
+      json['player0']['y'][i] = player0[i].newPos.y;
+    }
   }
   for (let i=0; i<player1.length; i++){
-    json['player1']['x'][i] = player1[i].position.x;
-    json['player1']['y'][i] = player1[i].position.y;
+    if (player1[i].newPos === null){
+      json['player1']['x'][i] = player1[i].position.x;
+      json['player1']['y'][i] = player1[i].position.y;
+    } else {
+      json['player1']['x'][i] = player1[i].newPos.x;
+      json['player1']['y'][i] = player1[i].newPos.y;
+    }
   }
   $.ajax({
     url : '/save',
@@ -22,32 +41,47 @@ function saveState(){
       console.log('Error saving');
   });
 
-
   // Execute Ai program
-  $.ajax({
-    url : '/exe',
-    type : 'GET'
-  }).always(function() {
-    console.log('Done computing');
-    // Retrieve data
+  setTimeout(function(){ // Wait 1s to move
     $.ajax({
-      url:"/load",
-      method:"GET"
-    }).done(function(data) {
-      console.log('Success loading');
-      data = JSON.parse(data);
-      for (let i=0; i<player0.length; i++){
-        player0[i].position.x = data['player0']['x'][i];
-        player0[i].position.y = data['player0']['y'][i];
-      }
-      for (let i=0; i<player1.length; i++){
-        player1[i].position.x = data['player1']['x'][i];
-        player1[i].position.y = data['player1']['y'][i];
-      }
-    }).fail(function() {
-      console.log('Failed loading');
+      url : '/exe',
+      type : 'POST',
+      data : {data: JSON.stringify({'player':  currentPlayer})},
+      async : async
+    }).always(function() {
+      console.log('Done computing');
+      // Retrieve data
+      $.ajax({
+        url:"/load",
+        method:"GET"
+      }).done(function(data) {
+        console.log('Success loading');
+        data = JSON.parse(data);
+        for (let i=0; i<player0.length; i++){
+          player0[i].newPos = createVector(data['player0']['x'][i], data['player0']['y'][i]);
+        }
+        for (let i=0; i<player1.length; i++){
+          player1[i].newPos = createVector(data['player1']['x'][i], data['player1']['y'][i]);
+        }
+        if (currentPlayer == 0){
+          if (player0.length < 3){
+            player0.push(new Piece(currentPlayer, 
+              createVector(data['player0']['x'][player0.length], 
+                          data['player0']['y'][player0.length]), createVector(0,0))); 
+          }
+        } else {
+          if (player1.length < 3){
+            player1.push(new Piece(currentPlayer, 
+              createVector(data['player1']['x'][player1.length], 
+                          data['player1']['y'][player1.length]), createVector(0,0))); 
+          }
+        }
+        currentPlayer = 1 - currentPlayer;
+      }).fail(function() {
+        console.log('Failed loading');
+      })
     })
-  })
+  }, waitTime);
 }
 
 function check(i, j, k, player){
@@ -123,7 +157,9 @@ function addPiece(i){
                         board[i].position, createVector(0,0)));  
     currentPlayer = 1-currentPlayer;  
     rounds++;
-    saveState();
+    if (use_ai){
+      saveState();
+    }
   } else if (currentPlayer == 1 && player1.length < 3) {
     board[i].num_piece = player1.length;
     board[i].piece_player = 1;
@@ -131,7 +167,9 @@ function addPiece(i){
                 board[i].position, createVector(0,0)));
     currentPlayer = 1-currentPlayer;
     rounds++;
-    saveState();
+    if (use_ai){
+      saveState();
+    }
   } else { // Wrong move
     board[i].has_piece = false;
   }
@@ -190,7 +228,9 @@ function secondClick(){
           board[i].piece_player = 0;
           currentPlayer = 1-currentPlayer;
           rounds++;
-          saveState();
+          if (use_ai){
+            saveState();
+          }
         }
       } else if (currentPlayer == 1 && player1.length == 3) {
         if (valid(curr_board, next_board)){
@@ -201,7 +241,9 @@ function secondClick(){
           board[i].piece_player = 1;
           currentPlayer = 1-currentPlayer;
           rounds++;
-          saveState();
+          if (use_ai){
+            saveState();
+          }
         }
       }       
     } else if (!(has_piece === null) && (has_piece || 
@@ -228,5 +270,11 @@ function restart(){
   waiting_response = false;
   for (let i = 0; i < 9; i++){
     board[i].has_piece = false;
+  }
+  if (ai_player == 0){
+    saveState();
+  } else if (ai_player == 2){
+    show_indication(currentPlayer);
+    first = true;
   }
 }
