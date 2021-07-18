@@ -1,12 +1,13 @@
 $(function(){
-    $('a#human').on('click', function(e) {
+    $('a#human').on('click touchend', function(e) {
         e.preventDefault();
         use_ai = false;
+        ai_player = -1;
         restart();
         return false;
     });
 
-    $('a#ai0').on('click', function(e) {
+    $('a#ai0').on('click touchend', function(e) {
         e.preventDefault();
         console.log('change ai');
         use_ai = true;
@@ -15,7 +16,7 @@ $(function(){
         return false;
     });
 
-    $('a#ai1').on('click', function(e) {
+    $('a#ai1').on('click touchend', function(e) {
         e.preventDefault();
         console.log('change ai');
         use_ai = true;
@@ -24,7 +25,7 @@ $(function(){
         return false;
     });
 
-    $('a#ai').on('click', function(e) {
+    $('a#ai').on('click touchend', function(e) {
         e.preventDefault();
         console.log('change ai');
         ai_player = 2;
