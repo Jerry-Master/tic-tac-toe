@@ -28,6 +28,7 @@ $(function(){
     $('a#ai').on('click touchend', function(e) {
         e.preventDefault();
         console.log('change ai');
+        use_ai = true;
         ai_player = 2;
         restart();
         return false;
@@ -46,11 +47,11 @@ function update_rounds(num_rounds){
 function show_indication(player){
     $('#player_').html('<h3>Jugador actual:</h3> \
     <p>Jugador '+str(player)+'</p> \
-    <p>Click to see next move</p> \
+    <p>Haz click para ver la siguiente jugada.</p> \
     ')
     $('#player').html('<h3>Jugador actual:</h3> \
     <p>Jugador '+str(player)+'</p> \
-    <p>Click to see next move</p> \
+    <p>Haz click para ver la siguiente jugada.</p> \
     ')
 }
 

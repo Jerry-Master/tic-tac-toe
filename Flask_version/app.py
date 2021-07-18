@@ -10,7 +10,7 @@ app = Flask(__name__)
 def english(name=None):
     return render_template('index.html', name=name)
 
-@app.route('/spanish')
+@app.route('/spanish', methods=['GET'])
 def spanish(name=None):
     return render_template('index-es.html', name=name)
 

@@ -28,6 +28,7 @@ $(function(){
     $('a#ai').on('click touchend', function(e) {
         e.preventDefault();
         console.log('change ai');
+        use_ai = true;
         ai_player = 2;
         restart();
         return false;

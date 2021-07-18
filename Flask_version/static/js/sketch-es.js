@@ -85,10 +85,21 @@ function setup() {
     }
   }
   
-  /* prevents the mobile browser from processing some default
+/* prevents the mobile browser from processing some default
    * touch events, like swiping left for "back" or scrolling
    * the page.
    */
-  function touchEnded(){
+function touchEnded(){
+  if (mouseX > 0 && mouseX < SCREEN_WIDHT && mouseY > 0 && mouseY < SCREEN_HEIGHT){
+    if (ai_player == 2){
+      if (first){
+        saveState(100, false);
+        first = false;
+      } else {
+        saveState(10, false);
+      }
+      sleep(100);
+    }
     return false;
   }
+}
