@@ -6,8 +6,13 @@ from subprocess import run
 app = Flask(__name__)
 
 @app.route('/')
-def hello(name=None):
+@app.route('/english')
+def english(name=None):
     return render_template('index.html', name=name)
+
+@app.route('/spanish')
+def spanish(name=None):
+    return render_template('index-es.html', name=name)
 
 @app.route('/compile', methods=['GET', 'POST'])
 def compile():
